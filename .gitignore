@@ -1,5 +1,10 @@
 *.py[cod]
 
+.DS_Store
+
+# Autosave files
+*~
+
 # C extensions
 *.so
 
