@@ -213,7 +213,7 @@ class ObjectList:
 		for i, token in enumerate(token_list):
 			if i< start:
 				continue
-			if token[0] == self.delimiter:
+			if token[0].find(self.delimiter)==0:
 				print token
 				# Include all comments before the first tag 
 				j = i-1
