@@ -8,6 +8,8 @@ Basic classes for working with raws
 from __future__ import division
 __metaclass__ = type
 
+import dfraw.debug as debug
+
 try:
 	from cStringIO import StringIO
 except ImportError:
@@ -52,7 +54,6 @@ class Token:
 			# Comment; acts like a string
 			return self.value[index]
 		else:
-			#print self.type, index, self.list
 			try:
 				return self.list[index]
 			except IndexError:
@@ -141,7 +142,7 @@ class Object:
 			return result[0][0]
 		elif len(result) == 1:
 			# Only 1 occurence of tag
-			return result[1]
+			return result[0]
 		# Something else
 		return result
 	__getattr__ = __getitem__
@@ -207,14 +208,15 @@ class ObjectList:
 				self.delimiter = token[1]
 				start = i + 1
 				break
+		self.file_header = token_list[0].value.split('\n')[0]
 		
 		# A list of the starting locations of objects
 		self.starts = []
 		for i, token in enumerate(token_list):
 			if i< start:
 				continue
-			if token[0].find(self.delimiter)==0:
-				print token
+			if token[0] in (self.delimiter, self.file_header.upper()):
+				debug.log('Found object: ',token)
 				# Include all comments before the first tag 
 				j = i-1
 				while token_list[j].type != Token.TAG:
@@ -246,5 +248,6 @@ class ObjectList:
 			if index.lower() in obj.name:
 				return obj
 		raise IndexError('Object not found in object list: {0}'.format(index))
+	__getattr__ = __getitem__
 		
 
