@@ -65,7 +65,7 @@ Token.TAG = 1
 Token.COMMENT = 2
 	
 class TokenList:
-	def __init__	(self, string):
+	def __init__(self, string):
 		"""
 		Takes a string and returns a list of Token objects
 		"""
