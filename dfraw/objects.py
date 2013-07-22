@@ -69,37 +69,13 @@ class TokenList:
 		"""
 		Takes a string and returns a list of Token objects
 		"""
-		#string = string.replace('[','[[').replace(']',']]')
-		self.list = []
-		i = j = 0
-		tag = False
-		while i-1 < len(string):
-			if tag:
-				# Inside a tag
-				try:
-					j = string.index(']', i)
-				except ValueError:
-					# No ] found, so bad syntax
-					raise ParseError('No closing bracket ( ] ) found! (char %i)' % i)
-				# Include the brackets
-				self.list.append(Token(string[i-1:j+1]))
-				# Jump to the last ]
-				i = j
-				tag = False
-				
-			else:
-				# Inside a comment
-				try:
-					j = string.index('[', i)
-				except ValueError:
-					# No [ found, which is perfectly valid at the end of a file
-					j = len(string)
-				# Exclude the next [
-				self.list.append(Token(string[(i+1 if i>0 else i):j]))
-				# Jump to 1 character after the next [
-				i = j + 1
-				tag = True
-				
+		
+		# Use the \x01 character to mark the ends of tags
+		string = string.replace('\x01','').replace('[','\x01[').replace(']',']\x01')
+		self.list = string.split('\x01')
+		
+		
+		
 		# Remove blank comments
 		for i, token in enumerate(self.list):
 			if token.type == Token.COMMENT and token.value == '':
