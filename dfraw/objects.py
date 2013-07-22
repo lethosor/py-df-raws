@@ -27,9 +27,9 @@ class File:
         f = open(path)
         self.raw_string = f.read()
         f.close()
-        self.token_list = TokenList(self.raw_string)
+        self.tokens = self.token_list = TokenList(self.raw_string)
         
-        self.object_list = ObjectList(self.token_list)
+        self.objects = self.object_list = ObjectList(self.token_list)
 
 class Token:
     def __init__(self, string):
