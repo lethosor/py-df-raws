@@ -74,6 +74,10 @@ class TokenList:
         string = string.replace('\x01','').replace('[','\x01[').replace(']',']\x01')
         self.list = string.split('\x01')
         
+        # Convert to tokens
+        for i, token in enumerate(self.list):
+            self.list[i] = token = Token(token)
+        
         # Remove blank comments
         for i, token in enumerate(self.list):
             if token.type == Token.COMMENT and token.value == '':
