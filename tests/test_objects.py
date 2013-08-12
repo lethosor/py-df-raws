@@ -8,8 +8,8 @@ import dfraw
 
 class ObjectsTest(unittest.TestCase):
     def setUp(self):
-        self.comment_tokens = ('a', ' \n', '', 'This is a comment')
-        self.tag_tokens = ('[a]', '[]', '[This:is:a:tag]', '[a:b]')
+        self.comment_tokens = ('a', ' \n', '', 'This is a comment', '[', ']', ':')
+        self.tag_tokens = ('[a]', '[]', '[This:is:a:tag]', '[a:b]', '[:]')
     
     def test_tag_tokens(self):
         for t in self.tag_tokens:
