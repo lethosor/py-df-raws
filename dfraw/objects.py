@@ -180,6 +180,7 @@ class ObjectGetterAllTags:
 
 class ObjectList:
     def __init__(self, token_list):
+        start = 0
         for i, token in enumerate(token_list):
             if token[0] == 'OBJECT':
                 self.delimiter = token[1]
@@ -225,6 +226,8 @@ class ObjectList:
             if index.lower() in obj.name:
                 return obj
         raise IndexError('Object not found in object list: {0}'.format(index))
-    __getattr__ = __getitem__
-        
+    #def __getattr__(self, attr):
+    #    if attr = 
+    #    return self[attr]
+    
 
