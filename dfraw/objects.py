@@ -25,6 +25,14 @@ class TagToken(Token):
         return '[' + ':'.join(self.value) + ']'
     __str__ = __unicode__
     
+    @property
+    def value(self):
+        return [self.name] + self.args
+    
+    @value.setter
+    def value(self, v):
+        self.name, self.args = v[0], v[1:]
+
     
 class CommentToken(Token):
     def __init__(self, text):
