@@ -1,11 +1,5 @@
 *.py[cod]
 
-.DS_Store
-*.komodoproject
-
-# Autosave files
-*~
-
 # C extensions
 *.so
 
